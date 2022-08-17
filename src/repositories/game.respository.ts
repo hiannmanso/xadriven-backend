@@ -124,13 +124,18 @@ async function getTable(token: string, userId) {
 					},
 				},
 				game_history: {},
-				accounts_accountsTogames_first_player_id: {},
-				accounts_accountsTogames_second_player_id: {},
+				accounts_accountsTogames_first_player_id: {
+					select: { username: true },
+				},
+				accounts_accountsTogames_second_player_id: {
+					select: { username: true },
+				},
 			},
 		})
-		return result2
+
+		return { ...result2, whitePlayer: true }
 	}
-	return result
+	return { ...result, whitePlayer: false }
 }
 
 async function makeaNewMove(piece: piece, sqToGo: piece) {
